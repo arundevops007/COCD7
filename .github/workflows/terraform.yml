@@ -14,9 +14,9 @@ jobs:
      - name: Azure Login
        uses: azure/login@v2
        with:
-         tenant-id: ${{vars.tenamt-id}}
-         clint-id: ${{vars.clint-id}}
-         subcription-id: ${{vars.subcription-id}}
+         tenant-id: ${{vars.tenamt_id}}
+         clint-id: ${{vars.clint_id}}
+         subcription-id: ${{vars.subcription_id}}
      - name: terraform
        uses: hashicorp/setup-terraform@v3
        
