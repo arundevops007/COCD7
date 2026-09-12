@@ -1,0 +1,34 @@
+name: 'ASD'
+on:
+ push:
+   branches:
+     - main
+
+jobs:
+  terraform:
+   runs-on: ubuntu-latest
+
+   steps:
+     - name: checkout
+       uses: actions/checkeout@V4
+     - name: Azure Login
+       uses: azure/login@v2
+       with:
+         tenant-id: ${{vars.tenamt-id}}
+         clint-id: ${{vars.clint-id}}
+         subcription-id: ${{vars.subcription-id}}
+     - name: terraform
+       uses: hashicorp/setup-terraform@v3
+       
+     - name: Terraform INIT
+       run: terraform init
+
+     - name: Terraform FMT
+       run: terraform fmt
+
+     - name: Terraform Validate
+       run: terraform validate
+     - name: Terraform Plan
+       run: terraform plan
+         
+         
