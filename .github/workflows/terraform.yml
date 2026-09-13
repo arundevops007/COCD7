@@ -10,28 +10,34 @@ permissions:
 
 jobs:
   terraform:
-   runs-on: self-hosted
+    runs-on: ubuntu-latest
 
-   steps:
-     - name: checkout
-       uses: actions/checkeout@v4
-     - name: Azure Login
-       uses: azure/login@v2
-       with:
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
          tenant-id: ${{vars.tenamt_id}}
          clint-id: ${{vars.clint_id}}
          subcription-id: ${{vars.subcription_id}}
-     - name: terraform
-       uses: hashicorp/setup-terraform@v3
-       
-     - name: Terraform INIT
-       run: terraform init
 
-     - name: Terraform FMT
-       run: terraform fmt
 
-     - name: Terraform Validate
-       run: terraform validate
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Plan
+      run: terraform plan -out=tfplan
      - name: Terraform Plan
        run: terraform plan
          
